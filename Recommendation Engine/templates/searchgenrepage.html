@@ -1,0 +1,75 @@
+<html>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="./../static/style/style.css">
+   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Hi {{username}}!</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <form class="form-inline my-2 my-lg-0" action = "http://localhost:5000/userlogout" method = "POST">
+                <p class="hidden"><input type = "text" name="username" value={{username}} /></p>
+                <p><input type ="submit" value = "Logout" class="btn btn-outline-danger my-2 my-sm-0"/></p>
+            </form>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action = "http://localhost:5000/userratingpage" method = "POST">
+    <p class="hidden"><input type = "text" name="username" value={{username}} /></p>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Movies you Rated</button>
+    </form>
+    <form class="form-inline my-2 my-lg-0" action = "http://localhost:5000/searchmovie" method = "POST">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search Movie" aria-label="Search" name="search_string">
+      <p class="hidden"><input type = "text" name="username" value={{username}} /></p>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <pre>  </pre>
+    <form class="form-inline my-2 my-lg-0"  action = "http://localhost:5000/searchgenre" method = "POST">
+      <p class="hidden"><input type = "text" name="username" value={{username}} /></p>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search Genre" aria-label="Search" name="search_string">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+        <div class="your-recommendations-genres">
+            {% if searchBool%}
+            <h3 class="card-header">Your Search Result</h3>
+            <div class="card-columns m-3">
+            {%for itr in movies%} 
+                        <div class="card text-center bg-dark h-75" style="width: 24rem;">
+                        <div class="card-body">
+                            <img src="./../static/movieImage.jpg" alt="MovieImage" class="card-img-top">
+                            <h3 class="card-title text-white">{{itr[3]}}</h3>
+                            <form action = "event.preventDefault();" method = "POST">
+                                <input type="number" step="0.5" min="0" max="5" id="{{itr[2]}}" name="user_rating">
+                                <p class="hidden"><input type = "text" name="username" value={{username}} /></p>
+                                <p class="hidden"><input type = "text" name="movieId" value={{itr[2]}} /></p>
+                                <p><input type = "submit"  class="btn btn-light" onclick="async('{{itr[2]}}')" /></p>
+                            </form>
+                        </div>
+                        </div>
+                    {%endfor%}
+            </div>
+            {% else %}
+                    <h3>Empty String Searched</h3>
+            {% endif %}
+        </div>
+        <script type="text/javascript">
+          function async(id_){
+              var xhr = new XMLHttpRequest();
+              let form = document.getElementById(id_);
+              var data = new FormData(form);
+              
+              xhr.open('POST',"http://localhost:5000/updaterating",true);
+              xhr.send(data);
+          }
+          items = 0
+      </script>
+   </body>
+</html>

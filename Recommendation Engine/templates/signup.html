@@ -1,0 +1,108 @@
+<html>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<style>
+   body, html {
+                  height: 100%;
+                  margin: 0;
+                  font-family: Arial, Helvetica, sans-serif;
+                  background-image: url("./../static/index.jpg");
+                  /* background- */
+                }
+                
+                * {
+                  box-sizing: border-box;
+                }
+</style>      
+<body>
+   <div class="container-fluid pt-3 bg-dark">
+      <div class="page-header text-center text-white font-weight-bold"><h1>SIGN UP</h1></div>
+      <div ng-app="myApp" ng-controller="myCtrl" ng-init="Username=''">
+         <form action = "http://localhost:5000/signup" method ="POST">
+            <h4 class="font-weight-bold text-white">SignUp Information:</h4>
+            <h6 class="font-weight-bold text-white">Username:<input type = "text" class="form-control" name = "username"  ng-model="Username"/></h6>
+            <h6 class="font-weight-bold text-white">Password:<input type="password" class="form-control" name = "password"  /></h6>
+            <div class="form-check">
+               <label class="form-check-label text-light ">
+                  <input type="checkbox" id="1" name="genre" value="Comedy" checked/>Comedy
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="2" name="genre" value="IMAX">IMAX
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="3" name="genre" value="Sci-Fi">Sci-Fi
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="4" name="genre" value="Children">Children
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="5" name="genre" value="Mystery"/>Mystery
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="6" name="genre" value="Musical">Musical
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="7" name="genre" value="Drama" checked>Drama
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="8" name="genre" value="Adventure"/>Adventure
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="9" name="genre" value="War">War
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="10" name="genre" value="Western">Western
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="11" name="genre" value="Animation">Animation
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="12" name="genre" value="Thriller">Thriller
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="13" name="genre" value="Crime">Crime
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="14" name="genre" value="Documentary">Documentary
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="15" name="genre" value="Fantasy">Fantasy
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="16" name="genre" value="Horror">Horror
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="17" name="genre" value="Romance">Romance
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="18" name="genre" value="Action" checked>Action
+               </label>
+               <label class="form-check-label text-light">
+                  <input type="checkbox" id="19" name="genre" value="Film-Noir">Film-Noir
+               </label>
+            </div>
+            <p><input type="submit" value="submit" class="btn btn-secondary btn-block" name="submit_button" /></p>
+            {% raw %} 
+               <span class="text-light" ng-bind="Username + SuggestedUsername()"></span></p>
+         {% endraw %}
+         </form>
+         <br />
+       </div>
+      </div>
+      <script>
+         var app = angular.module('myApp', []);
+         app.controller('myCtrl', function($scope) {
+               $scope.start = 0;
+               $scope.SuggestedUsername = function() {
+                  if($scope.Username!='')
+                  {
+                     return Math.floor(Math.random() * (999999 - 100000)) + 100000;
+                  }
+               };
+         });
+     </script>
+   </body>
+</html>
